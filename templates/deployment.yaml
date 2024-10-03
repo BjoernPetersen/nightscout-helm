@@ -6,6 +6,11 @@ spec:
   minReadySeconds: 10
   revisionHistoryLimit: 1
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+      maxSurge: 1
   selector:
     matchLabels:
       app: {{.Release.Name }}-nightscout
