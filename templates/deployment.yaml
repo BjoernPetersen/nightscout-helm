@@ -21,8 +21,6 @@ spec:
           ports:
             - containerPort: 1337
               name: http
-          startupProbe:
-            initialDelaySeconds: 30
           env:
             - name: INSECURE_USE_HTTP
               value: "true"
