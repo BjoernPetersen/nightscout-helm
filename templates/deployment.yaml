@@ -50,7 +50,7 @@ spec:
                   name: {{ .credentialSecret.name }}
                   key: {{ .credentialSecret.passwordKey }}
             - name: MONGO_CONNECTION
-              value: "mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@{{ .host }}:{{ .port }}/{{ .database }}"
+              value: "mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@{{ .host }}:{{ .port }}/{{ .database }}?authMechanism=PLAIN"
             {{- end }}
             {{- range $key, $value := .Values.browserDefaults }}
             - name: {{ $key | snakecase | upper }}
