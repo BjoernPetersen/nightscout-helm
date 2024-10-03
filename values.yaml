@@ -15,3 +15,10 @@ mongo:
   host: ""
   database: ""
   port: 27017
+displayUnits: "mg/dl"
+ingress:
+  enabled: false
+  host: ""
+  annotations: {}
+browserDefaults:
+  timeFormat: "24"

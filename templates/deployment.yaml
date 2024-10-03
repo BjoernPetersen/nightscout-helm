@@ -19,7 +19,7 @@ spec:
           image: "{{ .registry }}/{{ .repository }}:{{ .tag }}"
           {{- end }}
           ports:
-            - containerPort: 80
+            - containerPort: 1337
               name: http
           startupProbe:
             initialDelaySeconds: 30
@@ -35,6 +35,10 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.apiSecret.name }}
                   key: {{ .Values.apiSecret.key }}
+            - name: BASE_URL
+              value: "https://{{ .Values.ingress.host }}"
+            - name: DISPLAY_UNITS
+              value: {{ .Values.displayUnits }}
             {{- with .Values.mongo }}
             - name: MONGO_USER
               valueFrom:
@@ -49,4 +53,7 @@ spec:
             - name: MONGO_CONNECTION
               value: "mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@{{ .host }}:{{ .port }}/{{ .database }}"
             {{- end }}
-
+            {{- range $key, $value := .Values.browserDefaults }}
+            - name: {{ $key | snakecase | upper }}
+              value: {{ $value }}
+            {{- end }}
