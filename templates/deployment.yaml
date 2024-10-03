@@ -55,5 +55,5 @@ spec:
             {{- end }}
             {{- range $key, $value := .Values.browserDefaults }}
             - name: {{ $key | snakecase | upper }}
-              value: {{ $value }}
+              value: {{ $value | quote }}
             {{- end }}
