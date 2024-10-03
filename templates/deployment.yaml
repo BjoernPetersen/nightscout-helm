@@ -13,6 +13,7 @@ spec:
       labels:
         app: {{ .Release.Name }}-nightscout
     spec:
+      terminationGracePeriodSeconds: 5
       containers:
         - name: nightscout
           {{- with .Values.image }}
