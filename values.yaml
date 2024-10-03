@@ -1,0 +1,17 @@
+image:
+  registry: registry-1.docker.io
+  repository: nightscout/cgm-remote-monitor
+  tag: 15.0.2
+apiSecret:
+  name: ""
+  key: ""
+timezone: Etc/UTC
+replicaCount: 1
+mongo:
+  credentialSecret:
+    name: ""
+    usernameKey: ""
+    passwordKey: ""
+  host: ""
+  database: ""
+  port: 27017

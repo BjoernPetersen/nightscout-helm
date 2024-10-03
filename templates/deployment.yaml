@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-nightscout
+spec:
+  revisionHistoryLimit: 1
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{.Release.Name }}-nightscout
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-nightscout
+    spec:
+      containers:
+        - name: nightscout
+          {{- with .Values.image }}
+          image: "{{ .registry }}/{{ .repository }}:{{ .tag }}"
+          {{- end }}
+          ports:
+            - containerPort: 80
+              name: http
+          startupProbe:
+            initialDelaySeconds: 30
+          env:
+            - name: INSECURE_USE_HTTP
+              value: "true"
+            - name: TZ
+              value: {{ .Values.timezone }}
+            - name: AUTH_DEFAULT_ROLES
+              value: denied
+            - name: API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.apiSecret.name }}
+                  key: {{ .Values.apiSecret.key }}
+            {{- with .Values.mongo }}
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .credentialSecret.name }}
+                  key: {{ .credentialSecret.usernameKey }}
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .credentialSecret.name }}
+                  key: {{ .credentialSecret.passwordKey }}
+            - name: MONGO_CONNECTION
+              value: "mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@{{ .host }}:{{ .port }}/{{ .database }}"
+            {{- end }}
+
