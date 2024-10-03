@@ -43,7 +43,7 @@ spec:
                   name: {{ .Values.apiSecret.name }}
                   key: {{ .Values.apiSecret.key }}
             - name: BASE_URL
-              value: "https://{{ .Values.ingress.host }}"
+              value: "https://{{ .Values.externalHost }}"
             - name: DISPLAY_UNITS
               value: {{ .Values.displayUnits }}
             {{- with .Values.mongo }}

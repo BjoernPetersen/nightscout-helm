@@ -16,9 +16,11 @@ mongo:
   database: ""
   port: 27017
 displayUnits: "mg/dl"
+externalHost: ""
 ingress:
   enabled: false
   host: ""
+  tlsHosts: []
   annotations: {}
 browserDefaults:
   timeFormat: "24"
