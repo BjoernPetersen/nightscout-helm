@@ -14,30 +14,6 @@ spec:
         app: {{ .Release.Name }}-nightscout
     spec:
       terminationGracePeriodSeconds: 5
-      securityContext:
-        fsGroup: 1000
-      {{- with .Values.minifyCache }}
-      volumes:
-        - name: minify
-        {{- if (eq .type "emptyDir")}}
-          emptyDir:
-            sizeLimit: {{ .maxSize | quote }}
-        {{- else if (eq .type "ephemeral") }}
-          ephemeral:
-            volumeClaimTemplate:
-              spec:
-                storageClassName: {{ .storageClassName }}
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: {{ .maxSize | quote }}
-                  limits:
-                    storage: {{ .maxSize | quote }}
-        {{- else }}
-        {{- fail "Value for .Values.minifyCache.type must be emptyDir or ephemeral" }}
-        {{- end }}
-      {{- end }}
       containers:
         - name: nightscout
           {{- with .Values.image }}
@@ -80,6 +56,3 @@ spec:
             - name: {{ $key | snakecase | upper }}
               value: {{ $value | quote }}
             {{- end }}
-          volumeMounts:
-            - mountPath: /tmp/public
-              name: minify

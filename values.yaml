@@ -22,9 +22,3 @@ ingress:
   annotations: {}
 browserDefaults:
   timeFormat: "24"
-
-minifyCache:
-  # Alternative: ephemeral
-  type: emptyDir
-  maxSize: "500Mi"
-  storageClassName: ""
