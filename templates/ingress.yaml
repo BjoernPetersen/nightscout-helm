@@ -26,5 +26,15 @@ spec:
                   name: http
             pathType: Prefix
             path: "/"
+    - host: {{ $.Values.externalHost }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ $.Release.Name }}
+                port:
+                  name: http
+            pathType: Prefix
+            path: "/"
 {{- end }}
 {{- end }}
