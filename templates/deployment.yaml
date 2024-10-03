@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-nightscout
 spec:
+  minReadySeconds: 10
   revisionHistoryLimit: 1
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,7 +14,6 @@ spec:
       labels:
         app: {{ .Release.Name }}-nightscout
     spec:
-      minReadySeconds: 10
       terminationGracePeriodSeconds: 5
       containers:
         - name: nightscout
