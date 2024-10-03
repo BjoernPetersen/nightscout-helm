@@ -22,7 +22,7 @@ spec:
         {{- if (eq .type "emptyDir")}}
           emptyDir:
             sizeLimit: {{ .maxSize | quote }}
-        {{- else }}
+        {{- else if (eq .type "ephemeral") }}
           ephemeral:
             volumeClaimTemplate:
               spec:
@@ -34,6 +34,8 @@ spec:
                     storage: {{ .maxSize | quote }}
                   limits:
                     storage: {{ .maxSize | quote }}
+        {{- else }}
+        {{- fail "Value for .Values.minifyCache.type must be emptyDir or ephemeral" }}
         {{- end }}
       {{- end }}
       containers:
