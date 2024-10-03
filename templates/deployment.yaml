@@ -13,13 +13,13 @@ spec:
       labels:
         app: {{ .Release.Name }}-nightscout
     spec:
+      minReadySeconds: 10
       terminationGracePeriodSeconds: 5
       containers:
         - name: nightscout
           {{- with .Values.image }}
           image: "{{ .registry }}/{{ .repository }}:{{ .tag }}"
           {{- end }}
-          minReadySeconds: 10
           ports:
             - containerPort: 1337
               name: http
