@@ -1,0 +1,4 @@
+apiVersion: v2
+type: application
+name: nightscout
+version: 1.0.0
