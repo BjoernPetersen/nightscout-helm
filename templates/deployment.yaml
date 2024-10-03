@@ -49,7 +49,7 @@ spec:
                 secretKeyRef:
                   name: {{ .credentialSecret.name }}
                   key: {{ .credentialSecret.passwordKey }}
-            - name: MONGO_CONNECTION
+            - name: MONGODB_URI
               value: "mongodb://$(MONGO_USER):$(MONGO_PASSWORD)@{{ .host }}:{{ .port }}/{{ .database }}?authMechanism=PLAIN"
             {{- end }}
             {{- range $key, $value := .Values.browserDefaults }}
