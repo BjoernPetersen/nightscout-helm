@@ -81,5 +81,5 @@ spec:
               value: {{ $value | quote }}
             {{- end }}
           volumeMounts:
-            - mountPath: /opt/app/node_module/.cache/_ns_cache
+            - mountPath: /tmp/public
               name: minify
