@@ -20,7 +20,6 @@ externalHost: ""
 ingress:
   enabled: false
   host: ""
-  tlsHosts: []
   annotations: {}
 browserDefaults:
   timeFormat: "24"

@@ -11,7 +11,9 @@ metadata:
     {{- end }}
 spec:
   tls:
-    - hosts: {{ .tlsHosts | toJson }}
+    - hosts:
+        - {{ $.Values.externalHost }}
+        - {{ $.Values.ingress.host }}
       secretName: {{ $.Release.Name }}-cert-tls
   rules:
     - host: {{ .host }}
