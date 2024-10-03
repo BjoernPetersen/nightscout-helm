@@ -20,7 +20,7 @@ spec:
         paths:
           - backend:
               service:
-                name: {{ $.Release.Name }}-nightscout
+                name: {{ $.Release.Name }}
                 port:
                   name: http
             pathType: Prefix
