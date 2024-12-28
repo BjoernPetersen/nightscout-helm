@@ -40,6 +40,18 @@ spec:
           ports:
             - containerPort: 1337
               name: http
+          startupProbe:
+            exec:
+              command:
+                - /bin/sh
+                - /healthcheck.sh
+            failureThreshold: 10
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - /healthcheck.sh
+            failureThreshold: 2
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
