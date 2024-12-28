@@ -11,3 +11,4 @@ COPY --chown=root --chmod=755 healthcheck.sh /healthcheck.sh
 USER 1000
 
 ENTRYPOINT [ "tini", "--" ]
+CMD [ "node", "lib/server/server.js" ]
