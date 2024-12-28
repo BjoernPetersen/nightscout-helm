@@ -7,6 +7,10 @@ on:
 
 jobs:
   required-meta:
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
     uses: BlindfoldedSurgery/actions-meta/.github/workflows/required.yml@v1
 
   export-version:
@@ -26,6 +30,9 @@ jobs:
   build-container-image:
     uses: BjoernPetersen/actions-container/.github/workflows/build-dual-image-kaniko.yml@v5
     needs: export-version
+    permissions:
+      contents: read
+      packages: write
     with:
       arm-runner-name: ubicloud-standard-2-arm
       context: container
