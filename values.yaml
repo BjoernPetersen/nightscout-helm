@@ -1,7 +1,6 @@
 image:
-  registry: registry-1.docker.io
-  repository: nightscout/cgm-remote-monitor
-  tag: 15.0.2
+  registry: ghcr.io
+  repository: bjoernpetersen/nightscout
 apiSecret:
   name: ""
   key: ""

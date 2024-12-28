@@ -1,4 +1,6 @@
 apiVersion: v2
 type: application
 name: nightscout
-version: 1.0.0
+version: 2.0.0
+# renovate: image=registry-1.docker.io/nightscout/cgm-remote-monitor
+appVersion: 15.0.2

@@ -19,6 +19,7 @@ spec:
       labels:
         app: {{ .Release.Name }}-nightscout
     spec:
+      serviceAccountName: {{ .Release.Name }}-nightscout
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -34,7 +35,7 @@ spec:
       containers:
         - name: nightscout
           {{- with .Values.image }}
-          image: "{{ .registry }}/{{ .repository }}:{{ .tag }}"
+          image: "{{ .registry }}/{{ .repository }}:{{ $.Chart.AppVersion }}"
           {{- end }}
           ports:
             - containerPort: 1337
