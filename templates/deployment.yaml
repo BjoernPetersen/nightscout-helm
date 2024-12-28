@@ -46,7 +46,7 @@ spec:
               command:
                 - /bin/sh
                 - /healthcheck.sh
-            failureThreshold: 10
+            failureThreshold: 100
           livenessProbe:
             exec:
               command:
