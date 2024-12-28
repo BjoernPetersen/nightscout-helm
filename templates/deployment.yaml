@@ -60,6 +60,9 @@ spec:
           env:
             - name: INSECURE_USE_HTTP
               value: "false"
+            - name: HOSTNAME
+              # Nightscout is hardcoded to listen on env.HOSTNAME
+              value: 0.0.0.0
             - name: TZ
               value: {{ .Values.timezone }}
             - name: AUTH_DEFAULT_ROLES
