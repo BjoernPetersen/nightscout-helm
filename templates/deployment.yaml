@@ -60,8 +60,10 @@ spec:
           env:
             - name: INSECURE_USE_HTTP
               value: "false"
-            - name: HOSTNAME
-              # Nightscout is hardcoded to listen on env.HOSTNAME
+            - name: CUSTOMCONNSTR_HOSTNAME
+              # Nightscout is hardcoded to listen on env.HOSTNAME, but setting the actual hostname
+              # to the listening address would be... questionable. Luckily, they accept env vars
+              # with the CUSTOMCONNSTR_ prefix as well (because of some Azure fuckery).
               value: 0.0.0.0
             - name: TZ
               value: {{ .Values.timezone }}
