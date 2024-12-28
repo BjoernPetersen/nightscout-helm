@@ -37,6 +37,7 @@ spec:
           {{- with .Values.image }}
           image: "{{ .registry }}/{{ .repository }}:{{ .tag | default $.Chart.AppVersion }}"
           {{- end }}
+          imagePullPolicy: Always
           ports:
             - containerPort: 1337
               name: http
