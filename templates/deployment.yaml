@@ -26,6 +26,10 @@ spec:
               labelSelector:
                 matchLabels:
                   app: {{ $.Release.Name }}-nightscout
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsNonRoot: true
       terminationGracePeriodSeconds: 5
       containers:
         - name: nightscout
@@ -35,6 +39,10 @@ spec:
           ports:
             - containerPort: 1337
               name: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ ALL ]
           env:
             - name: INSECURE_USE_HTTP
               value: "false"
