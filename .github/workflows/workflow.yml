@@ -21,7 +21,7 @@ jobs:
     outputs:
       version: ${{ steps.extract.outputs.version }}
     env:
-      # renovate datasource=docker depName=nightscout/cgm-remote-monitor
+      # renovate: datasource=docker depName=nightscout/cgm-remote-monitor
       NIGHTSCOUT_VERSION: 15.0.2
     steps:
       - id: extract
