@@ -35,7 +35,7 @@ spec:
       containers:
         - name: nightscout
           {{- with .Values.image }}
-          image: "{{ .registry }}/{{ .repository }}:{{ $.Chart.AppVersion }}"
+          image: "{{ .registry }}/{{ .repository }}:{{ .tag | default $.Chart.AppVersion }}"
           {{- end }}
           ports:
             - containerPort: 1337
