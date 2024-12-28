@@ -8,3 +8,35 @@ on:
 jobs:
   required-meta:
     uses: BlindfoldedSurgery/actions-meta/.github/workflows/required.yml@v1
+
+  export-version:
+    # Super dumb to introduce an extra job for this, but Renovate's built-in custom manager only
+    # supports versions in env vars, and the env context is not available in the build job's
+    # with block.
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.extract.outputs.version }}
+    env:
+      # renovate datasource=docker depName=nightscout lookupName=registry-1.docker.io/nightscout/cgm-remote-monitor
+      NIGHTSCOUT_VERSION: 15.0.2
+    steps:
+      - id: extract
+        run: echo "version=$NIGHTSCOUT_VERSION" >> "$GITHUB_OUTPUT"
+
+  build-container-image:
+    uses: BjoernPetersen/actions-container/.github/workflows/build-dual-image-kaniko.yml@v5
+    needs: export-version
+    with:
+      arm-runner-name: ubicloud-standard-2-arm
+      context: container
+      image-name: nightscout
+      push-image: ${{ github.ref_name == github.event.repository.default_branch }}
+      version: ${{ needs.export-version.outputs.version }}
+
+  post-build-container-image:
+    # Again, this job's existence is dumb. It serves entirely as a static target for branch
+    # protection rules.
+    runs-on: ubuntu-24.04
+    needs: build-container-image
+    steps:
+      - run: echo "Done."
