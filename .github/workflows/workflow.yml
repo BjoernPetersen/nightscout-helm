@@ -28,7 +28,7 @@ jobs:
         run: echo "version=$NIGHTSCOUT_VERSION" >> "$GITHUB_OUTPUT"
 
   build-container-image:
-    uses: BjoernPetersen/actions-container/.github/workflows/build-dual-image-kaniko.yml@v5
+    uses: BjoernPetersen/actions-container/.github/workflows/build-dual-image-kaniko.yml@v6
     needs: export-version
     permissions:
       contents: read
